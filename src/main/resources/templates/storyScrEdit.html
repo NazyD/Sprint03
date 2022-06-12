@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Týmy</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        a:link, a:visited, button{
+          background-color: white;
+          color: black;
+          border-radius: 22px;
+          border: 2px solid #ADB5BD;
+          padding: 5px 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        a:hover, a:active, button:hover, button:active{
+          background-color: #CED4DA;
+        }
+
+        div {
+          text-align: center;
+        }
+
+        #table {
+          border-collapse: collapse;
+          width: 80%;
+        }
+
+        #table td{
+          border: 1px solid black;
+          padding: 15px;
+          text-align: center;
+          background-color: #F8FCFF;
+        }
+
+        #table th {
+          border: 1px solid black;
+          text-align: center;
+          padding: 20px;
+          background-color: #E8F6FE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <div>
+            <h1>Přiřazené story</h1>
+            <br>
+            <div>
+                <a th:href="@{/}">Hlavní menu</a>
+            </div>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/storiesTab}">Všechny story</a>
+            <a th:href="@{/storiesTabEdit}">Přiřazené story</a>
+        </div>
+        <br>
+
+        <div>
+            <table id="table" align="center">
+                <thead>
+                <tr>
+                    <th>Popis story</th>
+                    <th>Potřebný čas</th>
+                    <th>Zbývající čas</th>
+                    <th>Strávený čas</th>
+                    <th>Stav story</th>
+                    <th>Tým</th>
+                    <th>Sprint</th>
+                    <th>Úprava</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="story: ${stories}">
+                    <td th:text="${story.getSummary}">Popis</td>
+                    <td th:text="${story.getOriginalEstimate}">Potřebný čas</td>
+                    <td th:text="${story.getRemainingEstimate}">Zbývající čas</td>
+                    <td th:text="${story.timeSpent}">Strávený čas</td>
+                    <td th:text="${story.storyStatus}">Stav story</td>
+                    <td th:text="${story.team.getTeamName}">Tým</td>
+                    <td th:text="${story.sprint.getSprintName}">Tým</td>
+                    <td>
+                        <form method="POST" th:action="@{/deleteStory2(storyId=${story.storyId})}">
+                            <button>Odstranit</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div><br>
+
+    </div>
+
+</body>
+</html>

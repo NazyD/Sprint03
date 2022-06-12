@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Týmy</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        a:link, a:visited, button{
+          background-color: white;
+          color: black;
+          border-radius: 22px;
+          border: 2px solid #ADB5BD;
+          padding: 5px 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        a:hover, a:active, button:hover, button:active{
+          background-color: #CED4DA;
+        }
+
+        div {
+          text-align: center;
+        }
+
+        #table {
+          border-collapse: collapse;
+          width: 80%;
+        }
+
+        #table td{
+          border: 1px solid black;
+          padding: 15px;
+          text-align: center;
+          background-color: #F8FCFF;
+        }
+
+        #table th {
+          border: 1px solid black;
+          text-align: center;
+          padding: 20px;
+          background-color: #E8F6FE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center" th:each="sprint: ${sprintInfo}">
+        <div>
+            <h1 th:text="${sprint.sprintName}"></h1>
+            <br>
+            <div>
+                <a th:href="@{/sprintsTab}">Zpět</a>
+            </div>
+        </div>
+        <br>
+        <div>
+            ID:<p th:text="${sprint.sprintId}"></p>
+        </div>
+        <div>
+            Od:<p th:text="${sprint.sprintStartDate}"></p>
+            Do:<p th:text="${sprint.sprintEndDate}"></p>
+        </div>
+        <hr><br>
+
+        <table class="table table-bordered" th:each="team: ${teams}">
+
+                <tr>
+                    <th th:text="${team.teamName}">Tým</th>
+                    <th th:text="${team.teamCapacity}">Kapacita týmu</th>
+                </tr>
+
+                <tr th:each="story: ${stories}">
+                    <td th:if="${story.team.getTeamId == team.teamId}" th:text="${story.summary}">Story</td>
+                    <td th:if="${story.team.getTeamId == team.teamId}" th:text="${story.originalEstimate}">Potřebný čas pro story</td>
+                </tr>
+
+                <tr>
+                    <td>Zbývající kapacita týmu tento sprint</td>
+                    <td th:text="${team.remTeamCapacity}"></td>
+                </tr>
+
+        </table><br>
+
+    </div>
+
+</body>
+</html>

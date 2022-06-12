@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Hlavní stránka</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        a:link, a:visited, button{
+          background-color: white;
+          color: black;
+          border-radius: 22px;
+          border: 2px solid #ADB5BD;
+          padding: 5px 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        a:hover, a:active, button:hover, button:active{
+          background-color: #CED4DA;
+        }
+
+        div {
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+        <h1>Úprava story</h1>
+        <br>
+        <div>
+            <a th:href="@{/storiesTabEdit}">Zpět</a>
+        </div>
+        <br>
+
+        <form th:action="@{/editStory}" th:object="${story}" method="POST">
+            <table align="center">
+                <tr>
+                    <td><input type="hidden" th:field="*{storyId}" /></td>
+                </tr>
+                <tr>
+                    <td>Popis story</td>
+                    <td><input type="text" th:field="*{summary}"
+                               name="summary" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Potřebný čas</td>
+                    <td><input type="text" th:field="*{originalEstimate}"
+                               name="originalEstimate" /></td>
+                </tr>
+                <tr>
+                    <td>Zbývající čas</td>
+                    <td><input type="text" th:field="*{remainingEstimate}"
+                               name="remainingEstimate" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Strávený čas</td>
+                    <td><input type="text" th:field="*{timeSpent}"
+                               name="timeSpent" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Stav story</td>
+                    <td>
+                        <select th:field="*{storyStatus}" name="storyStatus">
+                            <option th:each="status : ${T(com.oneseven.Project07.entity.Status).values()}"
+                                    th:value="${status}" th:text="${status}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Team</td>
+                    <td>
+                        <select th:field="*{team}" name="team">
+                            <option value="">Vybrat</option>
+                            <option th:each="team: ${teams}" th:value="${team.teamId}" th:text="${team.teamName}" />
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sprint</td>
+                    <td>
+                        <select th:field="*{sprint}" name="sprint">
+                            <option value="">Vybrat</option>
+                            <option th:each="sprint: ${sprints}" th:value="${sprint.sprintId}" th:text="${sprint.sprintName}" />
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Update" />
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hlavní stránka</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        a:link, a:visited {
+          background-color: white;
+          color: black;
+          border-radius: 22px;
+          border: 2px solid #ADB5BD;
+          padding: 5px 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        a:hover, a:active {
+          background-color: #CED4DA;
+        }
+
+        div {
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <h1>Vítejte!</h1>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/sprintsTab}">Sprinty</a>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/storiesTab}">Story</a>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/teamsTab}">Týmy</a>
+        </div>
+    </div>
+
+</body>
+</html>
